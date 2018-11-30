@@ -75,7 +75,7 @@ contract simpleVote {
             }
         }
         
-        return uint(-1); // �ĺ��ڰ� ���� ��� -1 ��ȯ
+        return uint(-1); // 후보자가 없는 경우 -1 반환
     }
     
     function getCandidatesInfo() view public returns (bytes32[]) // 후보자 이름들 반환
