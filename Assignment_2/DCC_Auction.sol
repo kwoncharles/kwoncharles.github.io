@@ -81,9 +81,10 @@ contract Auction {
     }
 
     function bid(bytes32 itemName, uint tokenCountForBid) public {
-        require(getItemIndex(itemName) != uint(-1), "itemName is invalid");
+        uint index = getItemIndex(itemName);
+        require(index != uint(-1), "itemName is invalid");
         // Bid have to be higher than the previous highest bid
-        require((tokenCountForBid < bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]), "Your bidding price is lower than the previous bid");
+        require((tokenCountForBid <= bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]),"Your bidding price is lower than the previous bid");
 
         myBids[itemName] = tokenCountForBid;
         highestBids[itemName] = tokenCountForBid;
@@ -91,7 +92,8 @@ contract Auction {
     }
 
     function getItemIndex(bytes32 item) public view returns (uint) {
-        for(uint i = itemList.length-1 ; i>=0 ; i--) {
+        uint length = itemList.length;
+        for(uint i = 0; i < length ;i++) {
             if(itemList[i] == item) {
                 return i;
             }
