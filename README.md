@@ -1,3 +1,3 @@
 # kwoncharles.github.io
 
-metamask based dAPP
+dApp based metamask
