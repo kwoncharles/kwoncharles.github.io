@@ -10,7 +10,8 @@ contract Auction {
     mapping (address => bidder) public bidders;
 
     mapping (bytes32 => uint) public highestBids;
-    mapping (bytes32 => uint) public myBids;
+    // mapping (bytes32 => uint) public myBids;
+    mapping (address => mapping (bytes32 => uint)) public usersBids;
 
     bytes32[] public itemList;
 
@@ -60,7 +61,7 @@ contract Auction {
         );
     }
 
-    function getMyBids() public view returns (uint, uint, uint, uint, uint, uint) {
+    function getUserBids() public view returns (uint, uint, uint, uint, uint, uint) {
         // uint[] returnList;
         // uint length = itemList.length;
 
@@ -71,12 +72,12 @@ contract Auction {
         // return returnList;
         
         return (
-          myBids["iPhone7"],
-          myBids["iPhone8"],
-          myBids["iPhoneX"],
-          myBids["GalaxyS9"],
-          myBids["GalaxyNote9"],
-          myBids["LGG7"]
+          usersBids[msg.sender]["iPhone7"],
+          usersBids[msg.sender]["iPhone8"],
+          usersBids[msg.sender]["iPhoneX"],
+          usersBids[msg.sender]["GalaxyS9"],
+          usersBids[msg.sender]["GalaxyNote9"],
+          usersBids[msg.sender]["LGG7"]
         );
     }
 
@@ -86,7 +87,7 @@ contract Auction {
         // Bid have to be higher than the previous highest bid
         require((tokenCountForBid <= bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]),"Your bidding price is lower than the previous bid");
 
-        myBids[itemName] = tokenCountForBid;
+        usersBids[msg.sender][itemName] = tokenCountForBid;
         highestBids[itemName] = tokenCountForBid;
         bidders[msg.sender].tokenBought -= tokenCountForBid;
     }

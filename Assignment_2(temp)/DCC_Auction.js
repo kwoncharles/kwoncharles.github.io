@@ -1,5 +1,5 @@
-let contractAddress = "0xface1b210e31b1b0b66dc82f4d0dcce183ba0f48";
-let abi = [
+const contractAddress = "0x6dfc4b8d63b0dfe8d369a681eff10ae36c8b618e";
+const abi = [
 	{
 		"constant": false,
 		"inputs": [
@@ -163,40 +163,6 @@ let abi = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getMyBids",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "getTokenBought",
 		"outputs": [
 			{
@@ -227,6 +193,40 @@ let abi = [
 		"inputs": [],
 		"name": "getTotalToken",
 		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserBids",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"name": "",
 				"type": "uint256"
@@ -276,25 +276,6 @@ let abi = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "myBids",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [],
 		"name": "tokenPrice",
 		"outputs": [
@@ -311,6 +292,29 @@ let abi = [
 		"constant": true,
 		"inputs": [],
 		"name": "totalToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "usersBids",
 		"outputs": [
 			{
 				"name": "",
@@ -439,9 +443,8 @@ function getHighestBids() {
 }
 
 function getMyBids() {
-  auction.getMyBids((e, list) => {
+  auction.getUserBids((e, list) => {
     if(list) {
-      console.log(list);
       list.map((element, i) => {
         document.getElementById(`myself-${itemNames[i]}`).innerHTML = element.toString();
       });
@@ -467,7 +470,7 @@ function bidForProduct(i) {
   );
   $(`#tb-${itemName}`).val("");
 
-  console.log(`bids for ${itemName}`);
+  console.log(`bids for ${itemName} about ${bidTokens}`);
   auction.bid(itemName, bidTokens, (e, r) => {
     if(e) console.log(e);
     getHighestBids();
