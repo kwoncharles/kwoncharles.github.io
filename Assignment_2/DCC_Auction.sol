@@ -10,7 +10,8 @@ contract Auction {
     mapping (address => bidder) public bidders;
 
     mapping (bytes32 => uint) public highestBids;
-    mapping (bytes32 => uint) public myBids;
+    // mapping (bytes32 => uint) public myBids;
+    mapping (address => mapping (bytes32 => uint)) public usersBids;
 
     bytes32[] public itemList;
 
@@ -51,16 +52,16 @@ contract Auction {
         // return returnList;
 
         return (
-          highestBids["iPhone7"],
-          highestBids["iPhone8"],
-          highestBids["iPhoneX"],
-          highestBids["GalaxyS9"],
-          highestBids["GalaxyNote9"],
+          highestBids["iphone7"],
+          highestBids["iphone8"],
+          highestBids["iphoneX"],
+          highestBids["galaxyS9"],
+          highestBids["galaxyNote9"],
           highestBids["LGG7"]
         );
     }
 
-    function getMyBids() public view returns (uint, uint, uint, uint, uint, uint) {
+    function getUserBids() public view returns (uint, uint, uint, uint, uint, uint) {
         // uint[] returnList;
         // uint length = itemList.length;
 
@@ -71,12 +72,12 @@ contract Auction {
         // return returnList;
         
         return (
-          myBids["iPhone7"],
-          myBids["iPhone8"],
-          myBids["iPhoneX"],
-          myBids["GalaxyS9"],
-          myBids["GalaxyNote9"],
-          myBids["LGG7"]
+          usersBids[msg.sender]["iphone7"],
+          usersBids[msg.sender]["iphone8"],
+          usersBids[msg.sender]["iphoneX"],
+          usersBids[msg.sender]["galaxyS9"],
+          usersBids[msg.sender]["galaxyNote9"],
+          usersBids[msg.sender]["LGG7"]
         );
     }
 
@@ -86,7 +87,7 @@ contract Auction {
         // Bid have to be higher than the previous highest bid
         require((tokenCountForBid <= bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]),"Your bidding price is lower than the previous bid");
 
-        myBids[itemName] = tokenCountForBid;
+        usersBids[msg.sender][itemName] = tokenCountForBid;
         highestBids[itemName] = tokenCountForBid;
         bidders[msg.sender].tokenBought -= tokenCountForBid;
     }

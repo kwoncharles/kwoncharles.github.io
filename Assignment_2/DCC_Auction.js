@@ -1,131 +1,21 @@
-const contractAddress = "0xafe42ccfc4609c7581cb9c08419a9be657832529";
+const contractAddress = "0x1286ae28389afd5636ad1159ef8315758be95c43";
 const abi = [
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getTotalToken",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "itemList",
-		"outputs": [
-			{
-				"name": "",
+				"name": "itemName",
 				"type": "bytes32"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getTokenPrice",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "totalToken",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyBids",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
 			},
 			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
+				"name": "tokenCountForBid",
 				"type": "uint256"
 			}
 		],
+		"name": "bid",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "tokenPrice",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "highestBids",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -138,13 +28,65 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"name": "_totalToken",
+				"type": "uint256"
+			},
+			{
+				"name": "_tokenPrice",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"constant": true,
 		"inputs": [],
-		"name": "getItemsInfo",
+		"name": "balanceTokens",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32[]"
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "bidders",
+		"outputs": [
+			{
+				"name": "bidderAddress",
+				"type": "address"
+			},
+			{
+				"name": "tokenBought",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBalanceTokens",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -205,36 +147,13 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "itemName",
-				"type": "bytes32"
-			},
-			{
-				"name": "tokenCountForBid",
-				"type": "uint256"
-			}
-		],
-		"name": "bid",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "myBids",
+		"inputs": [],
+		"name": "getItemsInfo",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -258,7 +177,7 @@ const abi = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "balanceTokens",
+		"name": "getTokenPrice",
 		"outputs": [
 			{
 				"name": "",
@@ -272,7 +191,107 @@ const abi = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getBalanceTokens",
+		"name": "getTotalToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserBids",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "highestBids",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "itemList",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "tokenPrice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalToken",
 		"outputs": [
 			{
 				"name": "",
@@ -289,37 +308,22 @@ const abi = [
 			{
 				"name": "",
 				"type": "address"
-			}
-		],
-		"name": "bidders",
-		"outputs": [
-			{
-				"name": "bidderAddress",
-				"type": "address"
 			},
 			{
-				"name": "tokenBought",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "usersBids",
+		"outputs": [
+			{
+				"name": "",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_totalToken",
-				"type": "uint256"
-			},
-			{
-				"name": "_tokenPrice",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ];
 
@@ -352,10 +356,9 @@ window.addEventListener("load", function() {
 function startApp() {
   auctionContract = web3.eth.contract(abi);
   auction = auctionContract.at(contractAddress);
-  if (auction) console.log("success");
   document.getElementById("contractAddr").innerHTML = getLink(contractAddress);
 
-  web3.eth.defaultAccount = web3.eth.accounts[0];
+  web3.eth.defaultAccount=web3.eth.accounts[0];
 
   web3.eth.getAccounts((e, r) => {
     document.getElementById("accountAddr").innerHTML = getLink(r[0]);
@@ -367,14 +370,14 @@ function startApp() {
   itemNamesBytes32 = {};
   auction.getItemsInfo.call((e, list) => {
     if (!e) {
-      list.map(element => {
-        const itemName = web3.toUtf8(element);
+      list.map((element) => {
+        const itemName = web3.toUtf8(element)
         itemNames.push(itemName);
         itemNamesBytes32[itemName] = element;
       });
       console.log(itemNames);
     }
-  });
+  })
 }
 
 function getLink(addr) {
@@ -421,46 +424,23 @@ function getTokenInfo() {
 
 function getHighestBids() {
   auction.getHighestBids((e, list) => {
-    if (list) {
+    if(list) {
       console.log(list);
       list.map((element, i) => {
-        document.getElementById(
-          `highest-${itemNames[i]}`
-        ).innerHTML = element.toString();
+        document.getElementById(`highest-${itemNames[i]}`).innerHTML = element.toString();
       });
     }
   });
-
-  // auction.getHighestBids((e, r) => {
-  //   for (let i = 0; i < r.length; i++) {
-  //     console.log(`highest-${itemNames[i]}`);
-  //     document.getElementById(`highest-${itemNames[i]}`).innerHTML = r[
-  //       i
-  //     ].toString();
-  //   }
-  // });
 }
 
 function getMyBids() {
-  auction.getMyBids((e, list) => {
-    if (list) {
-      console.log(list);
+  auction.getUserBids((e, list) => {
+    if(list) {
       list.map((element, i) => {
-        document.getElementById(
-          `myself-${itemNames[i]}`
-        ).innerHTML = element.toString();
+        document.getElementById(`myself-${itemNames[i]}`).innerHTML = element.toString();
       });
     }
   });
-
-  // auction.getMyBids((e, r) => {
-  //   for (let i = 0; i < r.length; i++) {
-  //     console.log(`highest-${itemNames[i]}`);
-  //     document.getElementById(`myself-${itemNames[i]}`).innerHTML = r[
-  //       i
-  //     ].toString();
-  //   }
-  // });
 }
 
 function bidForProduct(i) {
@@ -471,14 +451,12 @@ function bidForProduct(i) {
   );
   $(`#tb-${itemName}`).val("");
 
-  console.log(`bids for ${itemName}`);
-
-  auction.bid(itemName, bidTokens, (e, r) => {
-    if (e) console.log(e);
-    else {
-      getHighestBids();
-      getMyBids();
-    }
+  console.log(`bids for ${[itemName]} about ${bidTokens}`);
+  // auction.bid(itemName, bidTokens, (e, r) => {
+    auction.bid(itemNamesBytes32[itemName], bidTokens, (e, r) => {
+    if(e) console.log(e);
+    getHighestBids();
+    getMyBids();
   });
 }
 
@@ -492,7 +470,7 @@ function buyTokens() {
     { value: web3.toWei(price, "ether"), from: web3.eth.accounts[0] },
     function(v) {
       web3.eth.getBalance(auction.address, function(e, r) {
-        if (r) console.log(r);
+        if(r) console.log(r);
         $("#contract-balance").html(web3.fromWei(r.toString()) + " ETH");
       });
     }

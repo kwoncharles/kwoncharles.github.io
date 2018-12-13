@@ -1,4 +1,4 @@
-const contractAddress = "0x6dfc4b8d63b0dfe8d369a681eff10ae36c8b618e";
+const contractAddress = "0x1286ae28389afd5636ad1159ef8315758be95c43";
 const abi = [
 	{
 		"constant": false,
@@ -431,15 +431,6 @@ function getHighestBids() {
       });
     }
   });
-
-  // auction.getHighestBids((e, r) => {
-  //   for (let i = 0; i < r.length; i++) {
-  //     console.log(`highest-${itemNames[i]}`);
-  //     document.getElementById(`highest-${itemNames[i]}`).innerHTML = r[
-  //       i
-  //     ].toString();
-  //   }
-  // });
 }
 
 function getMyBids() {
@@ -450,28 +441,19 @@ function getMyBids() {
       });
     }
   });
-
-  // auction.getMyBids((e, r) => {
-  //   for (let i = 0; i < r.length; i++) {
-  //     console.log(`highest-${itemNames[i]}`);
-  //     document.getElementById(`myself-${itemNames[i]}`).innerHTML = r[
-  //       i
-  //     ].toString();
-  //   }
-  // });
 }
 
 function bidForProduct(i) {
   const itemName = itemNames[i];
   const bidTokens = $(`#tb-${itemName}`).val();
   alert(
-    "Bid has been submitted. The bid will be done as soon as the bid is recorded on the blockchain. \
-          (As long as your bid is higher than the previouse highest one.)"
+    "Bid has been submitted. The bid will be done as soon as the bid is recorded on the blockchain. (As long as your bid is higher than the previouse highest one.)"
   );
   $(`#tb-${itemName}`).val("");
 
-  console.log(`bids for ${itemName} about ${bidTokens}`);
-  auction.bid(itemName, bidTokens, (e, r) => {
+  console.log(`bids for ${[itemName]} about ${bidTokens}`);
+  // auction.bid(itemName, bidTokens, (e, r) => {
+    auction.bid(itemNamesBytes32[itemName], bidTokens, (e, r) => {
     if(e) console.log(e);
     getHighestBids();
     getMyBids();

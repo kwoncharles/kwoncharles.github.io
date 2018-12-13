@@ -52,11 +52,11 @@ contract Auction {
         // return returnList;
 
         return (
-          highestBids["iPhone7"],
-          highestBids["iPhone8"],
-          highestBids["iPhoneX"],
-          highestBids["GalaxyS9"],
-          highestBids["GalaxyNote9"],
+          highestBids["iphone7"],
+          highestBids["iphone8"],
+          highestBids["iphoneX"],
+          highestBids["galaxyS9"],
+          highestBids["galaxyNote9"],
           highestBids["LGG7"]
         );
     }
@@ -72,11 +72,11 @@ contract Auction {
         // return returnList;
         
         return (
-          usersBids[msg.sender]["iPhone7"],
-          usersBids[msg.sender]["iPhone8"],
-          usersBids[msg.sender]["iPhoneX"],
-          usersBids[msg.sender]["GalaxyS9"],
-          usersBids[msg.sender]["GalaxyNote9"],
+          usersBids[msg.sender]["iphone7"],
+          usersBids[msg.sender]["iphone8"],
+          usersBids[msg.sender]["iphoneX"],
+          usersBids[msg.sender]["galaxyS9"],
+          usersBids[msg.sender]["galaxyNote9"],
           usersBids[msg.sender]["LGG7"]
         );
     }
