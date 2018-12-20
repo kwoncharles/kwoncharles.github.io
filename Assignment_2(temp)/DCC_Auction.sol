@@ -87,6 +87,10 @@ contract Auction {
         // Bid have to be higher than the previous highest bid
         require((tokenCountForBid <= bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]),"Your bidding price is lower than the previous bid");
 
+        /*
+        // Retrieve existing Bidding value
+        bidders[msg.sender].tokenBought += usersBids[msg.sender][itemName];
+        */
         usersBids[msg.sender][itemName] = tokenCountForBid;
         highestBids[itemName] = tokenCountForBid;
         bidders[msg.sender].tokenBought -= tokenCountForBid;

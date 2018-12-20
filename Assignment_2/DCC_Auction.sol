@@ -8,9 +8,7 @@ contract Auction {
     }
 
     mapping (address => bidder) public bidders;
-
     mapping (bytes32 => uint) public highestBids;
-    // mapping (bytes32 => uint) public myBids;
     mapping (address => mapping (bytes32 => uint)) public usersBids;
 
     bytes32[] public itemList;
@@ -19,12 +17,12 @@ contract Auction {
     uint public balanceTokens;
     uint public tokenPrice;
     
-
     constructor(uint _totalToken, uint _tokenPrice) public {
         totalToken = _totalToken;
         balanceTokens = _totalToken;
         tokenPrice = _tokenPrice;
 
+        // enroll items for auction
         itemList.push("iphone7");
         itemList.push("iphone8");
         itemList.push("iphoneX");
@@ -41,44 +39,26 @@ contract Auction {
         balanceTokens -= tokensToBuy;
     }
 
-    function getHighestBids() public view returns (uint, uint, uint, uint, uint, uint) {
-        // uint[] returnList;
-        // uint length = itemList.length;
+    function getHighestBids() public view returns (uint[]) {
+        uint[] storage returnList;
+        uint length = itemList.length;
+        
+        for( uint i = 0; i < length; i++) {
+            returnList.push(highestBids[itemList[i]]);
+        }
 
-        // for( uint i = 0; i < length; i++) {
-        //     returnList.push(highestBids[itemList[i]]);
-        // }
-
-        // return returnList;
-
-        return (
-          highestBids["iphone7"],
-          highestBids["iphone8"],
-          highestBids["iphoneX"],
-          highestBids["galaxyS9"],
-          highestBids["galaxyNote9"],
-          highestBids["LGG7"]
-        );
+        return returnList;
     }
 
-    function getUserBids() public view returns (uint, uint, uint, uint, uint, uint) {
-        // uint[] returnList;
-        // uint length = itemList.length;
+    function getUserBids() public view returns (uint[]) {
+        uint[] storage returnList;
+        uint length = itemList.length;
 
-        // for( uint i = 0; i < length; i++) {
-        //     returnList.push(myBids[itemList[i]]);
-        // }
+        for( uint i = 0; i < length; i++) {
+            returnList.push(usersBids[msg.sender][itemList[i]]);
+        }
 
-        // return returnList;
-        
-        return (
-          usersBids[msg.sender]["iphone7"],
-          usersBids[msg.sender]["iphone8"],
-          usersBids[msg.sender]["iphoneX"],
-          usersBids[msg.sender]["galaxyS9"],
-          usersBids[msg.sender]["galaxyNote9"],
-          usersBids[msg.sender]["LGG7"]
-        );
+        return returnList;
     }
 
     function bid(bytes32 itemName, uint tokenCountForBid) public {
@@ -87,6 +67,9 @@ contract Auction {
         // Bid have to be higher than the previous highest bid
         require((tokenCountForBid <= bidders[msg.sender].tokenBought) && (tokenCountForBid > highestBids[itemName]),"Your bidding price is lower than the previous bid");
 
+        // Retrieve existing Bidding value
+        bidders[msg.sender].tokenBought += usersBids[msg.sender][itemName];
+        
         usersBids[msg.sender][itemName] = tokenCountForBid;
         highestBids[itemName] = tokenCountForBid;
         bidders[msg.sender].tokenBought -= tokenCountForBid;
