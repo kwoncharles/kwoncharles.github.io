@@ -1,4 +1,4 @@
-const contractAddress = "0x1286ae28389afd5636ad1159ef8315758be95c43";
+const contractAddress = "0xb203f3923edec9b823ae0c1a2c322d42622cd27a";
 const abi = [
 	{
 		"constant": false,
@@ -100,27 +100,7 @@ const abi = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
+				"type": "uint256[]"
 			}
 		],
 		"payable": false,
@@ -209,27 +189,7 @@ const abi = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
+				"type": "uint256[]"
 			}
 		],
 		"payable": false,
@@ -333,8 +293,8 @@ let accountAddress;
 let currentEtherBalance;
 let currentTokenBalance;
 let tokenPrice;
-let itemNames;
-let itemNamesBytes32;
+const itemNames = [];
+const itemNamesBytes32 = {};
 
 window.addEventListener("load", function() {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -352,7 +312,6 @@ window.addEventListener("load", function() {
   startApp();
 });
 
-// Web3의 함수들을 불러 EOA의 데이터를 Fetch
 function startApp() {
   auctionContract = web3.eth.contract(abi);
   auction = auctionContract.at(contractAddress);
@@ -366,8 +325,6 @@ function startApp() {
     getValue(); // 현재 address가 가지고 있는 이더 출력
   });
 
-  itemNames = [];
-  itemNamesBytes32 = {};
   auction.getItemsInfo.call((e, list) => {
     if (!e) {
       list.map((element) => {
@@ -376,7 +333,7 @@ function startApp() {
         itemNamesBytes32[itemName] = element;
       });
       console.log(itemNames);
-    }
+    } else console.log(`Error: ${e}`);
   })
 }
 
@@ -452,9 +409,11 @@ function bidForProduct(i) {
   $(`#tb-${itemName}`).val("");
 
   console.log(`bids for ${[itemName]} about ${bidTokens}`);
-  // auction.bid(itemName, bidTokens, (e, r) => {
-    auction.bid(itemNamesBytes32[itemName], bidTokens, (e, r) => {
+
+  auction.bid(itemNamesBytes32[itemName], bidTokens, (e, r) => {
     if(e) console.log(e);
+    else console.log(`Error: ${e}`);
+    
     getHighestBids();
     getMyBids();
   });
